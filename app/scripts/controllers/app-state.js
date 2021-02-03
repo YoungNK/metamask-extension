@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 import { ObservableStore } from '@metamask/obs-store';
+import { EVENTS } from '../constants/event-names';
 
 export default class AppStateController extends EventEmitter {
   /**
@@ -74,7 +75,7 @@ export default class AppStateController extends EventEmitter {
    */
   waitForUnlock(resolve, shouldShowUnlockRequest) {
     this.waitingForUnlock.push({ resolve });
-    this.emit('updateBadge');
+    this.emit(EVENTS.UPDATE_BADGE);
     if (shouldShowUnlockRequest) {
       this._showUnlockRequest();
     }
@@ -88,7 +89,7 @@ export default class AppStateController extends EventEmitter {
       while (this.waitingForUnlock.length > 0) {
         this.waitingForUnlock.shift().resolve();
       }
-      this.emit('updateBadge');
+      this.emit(EVENTS.UPDATE_BADGE);
     }
   }
 

@@ -3,6 +3,7 @@ import { ObservableStore } from '@metamask/obs-store';
 import { ethErrors } from 'eth-rpc-errors';
 import log from 'loglevel';
 import { MESSAGE_TYPE } from '../../../shared/constants/app';
+import { EVENTS } from '../constants/event-names';
 import createId from './random-id';
 
 /**
@@ -243,6 +244,17 @@ export default class EncryptionPublicKeyManager extends EventEmitter {
   }
 
   /**
+   * Clears all unapproved messages from memory.
+   */
+  clearUnapproved() {
+    this.memStore.updateState({
+      unapprovedEncryptionPublicKeyMsgs: {},
+      unapprovedEncryptionPublicKeyMsgCount: 0,
+    });
+    this.emit(EVENTS.UPDATE_BADGE);
+  }
+
+  /**
    * Updates the status of a EncryptionPublicKey in this.messages via a call to this._updateMsg
    *
    * @private
@@ -303,6 +315,6 @@ export default class EncryptionPublicKeyManager extends EventEmitter {
       unapprovedEncryptionPublicKeyMsgs,
       unapprovedEncryptionPublicKeyMsgCount,
     });
-    this.emit('updateBadge');
+    this.emit(EVENTS.UPDATE_BADGE);
   }
 }

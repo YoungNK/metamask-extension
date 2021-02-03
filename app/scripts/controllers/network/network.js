@@ -22,6 +22,7 @@ import {
   isPrefixedFormattedHexString,
   isSafeChainId,
 } from '../../../../shared/modules/utils';
+import { EVENTS } from '../../constants/event-names';
 import createMetamaskMiddleware from './createMetamaskMiddleware';
 import createInfuraClient from './createInfuraClient';
 import createJsonRpcClient from './createJsonRpcClient';
@@ -73,7 +74,7 @@ export default class NetworkController extends EventEmitter {
     this._providerProxy = null;
     this._blockTrackerProxy = null;
 
-    this.on('networkDidChange', this.lookupNetwork);
+    this.on(EVENTS.NETWORK_DID_CHANGE, this.lookupNetwork);
   }
 
   /**
@@ -229,9 +230,10 @@ export default class NetworkController extends EventEmitter {
   //
 
   _switchNetwork(opts) {
+    this.emit(EVENTS.NETWORK_WILL_CHANGE);
     this.setNetworkState('loading');
     this._configureProvider(opts);
-    this.emit('networkDidChange', opts.type);
+    this.emit(EVENTS.NETWORK_DID_CHANGE, opts.type);
   }
 
   _configureProvider({ type, rpcUrl, chainId }) {

@@ -15,6 +15,7 @@ import {
   TRANSACTION_STATUSES,
   TRANSACTION_TYPES,
 } from '../../../../../shared/constants/transaction';
+import { EVENTS } from '../../../../../app/scripts/constants/event-names';
 
 const noop = () => true;
 const currentNetworkId = '42';
@@ -395,7 +396,7 @@ describe('Transaction Controller', function () {
         txParams: {},
       };
 
-      const eventNames = ['update:badge', '1:unapproved'];
+      const eventNames = [EVENTS.UPDATE_BADGE, '1:unapproved'];
       const listeners = [];
       eventNames.forEach((eventName) => {
         listeners.push(

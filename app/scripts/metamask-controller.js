@@ -60,6 +60,7 @@ import accountImporter from './account-import-strategies';
 import seedPhraseVerifier from './lib/seed-phrase-verifier';
 import MetaMetricsController from './controllers/metametrics';
 import { segment, segmentLegacy } from './lib/segment';
+import { EVENTS } from './constants/event-names';
 
 export default class MetamaskController extends EventEmitter {
   /**
@@ -127,7 +128,7 @@ export default class MetamaskController extends EventEmitter {
       preferencesStore: this.preferencesController.store,
       onNetworkDidChange: this.networkController.on.bind(
         this.networkController,
-        'networkDidChange',
+        EVENTS.NETWORK_DID_CHANGE,
       ),
       getNetworkIdentifier: this.networkController.getNetworkIdentifier.bind(
         this.networkController,
@@ -212,11 +213,6 @@ export default class MetamaskController extends EventEmitter {
     this.onboardingController = new OnboardingController({
       initState: initState.OnboardingController,
       preferencesController: this.preferencesController,
-    });
-
-    // ensure accountTracker updates balances after network change
-    this.networkController.on('networkDidChange', () => {
-      this.accountTracker._updateAccounts();
     });
 
     const additionalKeyrings = [TrezorKeyring, LedgerBridgeKeyring];
@@ -323,7 +319,7 @@ export default class MetamaskController extends EventEmitter {
       }
     });
 
-    this.networkController.on('networkDidChange', () => {
+    this.networkController.on(EVENTS.NETWORK_DID_CHANGE, () => {
       this.setCurrentCurrency(
         this.currencyRateController.state.currentCurrency,
         (error) => {
@@ -355,6 +351,21 @@ export default class MetamaskController extends EventEmitter {
         this.networkController,
       ),
       tokenRatesStore: this.tokenRatesController.store,
+    });
+
+    // ensure accountTracker updates balances after network change
+    this.networkController.on(EVENTS.NETWORK_DID_CHANGE, () => {
+      this.accountTracker._updateAccounts();
+    });
+
+    // clear unapproved transactions and messages when the network will change
+    this.networkController.on(EVENTS.NETWORK_WILL_CHANGE, () => {
+      this.txController.txStateManager.clearUnapprovedTxs();
+      this.encryptionPublicKeyManager.clearUnapproved();
+      this.personalMessageManager.clearUnapproved();
+      this.typedMessageManager.clearUnapproved();
+      this.decryptMessageManager.clearUnapproved();
+      this.messageManager.clearUnapproved();
     });
 
     // ensure isClientOpenAndUnlocked is updated when memState updates

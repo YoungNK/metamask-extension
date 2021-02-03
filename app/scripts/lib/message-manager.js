@@ -3,6 +3,7 @@ import { ObservableStore } from '@metamask/obs-store';
 import ethUtil from 'ethereumjs-util';
 import { ethErrors } from 'eth-rpc-errors';
 import { MESSAGE_TYPE } from '../../../shared/constants/app';
+import { EVENTS } from '../constants/event-names';
 import createId from './random-id';
 
 /**
@@ -221,6 +222,17 @@ export default class MessageManager extends EventEmitter {
   }
 
   /**
+   * Clears all unapproved messages from memory.
+   */
+  clearUnapproved() {
+    this.memStore.updateState({
+      unapprovedMsgs: {},
+      unapprovedMsgCount: 0,
+    });
+    this.emit(EVENTS.UPDATE_BADGE);
+  }
+
+  /**
    * Updates the status of a Message in this.messages via a call to this._updateMsg
    *
    * @private
@@ -272,7 +284,7 @@ export default class MessageManager extends EventEmitter {
     const unapprovedMsgs = this.getUnapprovedMsgs();
     const unapprovedMsgCount = Object.keys(unapprovedMsgs).length;
     this.memStore.updateState({ unapprovedMsgs, unapprovedMsgCount });
-    this.emit('updateBadge');
+    this.emit(EVENTS.UPDATE_BADGE);
   }
 }
 

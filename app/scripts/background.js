@@ -37,6 +37,7 @@ import rawFirstTimeState from './first-time-state';
 import getFirstPreferredLangCode from './lib/get-first-preferred-lang-code';
 import getObjStructure from './lib/getObjStructure';
 import setupEnsIpfsResolver from './lib/ens-ipfs/setup';
+import { EVENTS } from './constants/event-names';
 /* eslint-enable import/first */
 
 const { sentry } = global;
@@ -396,14 +397,14 @@ function setupController(initState, initLangCode) {
   //
 
   updateBadge();
-  controller.txController.on('update:badge', updateBadge);
-  controller.messageManager.on('updateBadge', updateBadge);
-  controller.personalMessageManager.on('updateBadge', updateBadge);
-  controller.decryptMessageManager.on('updateBadge', updateBadge);
-  controller.encryptionPublicKeyManager.on('updateBadge', updateBadge);
-  controller.typedMessageManager.on('updateBadge', updateBadge);
+  controller.txController.on(EVENTS.UPDATE_BADGE, updateBadge);
+  controller.messageManager.on(EVENTS.UPDATE_BADGE, updateBadge);
+  controller.personalMessageManager.on(EVENTS.UPDATE_BADGE, updateBadge);
+  controller.decryptMessageManager.on(EVENTS.UPDATE_BADGE, updateBadge);
+  controller.encryptionPublicKeyManager.on(EVENTS.UPDATE_BADGE, updateBadge);
+  controller.typedMessageManager.on(EVENTS.UPDATE_BADGE, updateBadge);
   controller.approvalController.subscribe(updateBadge);
-  controller.appStateController.on('updateBadge', updateBadge);
+  controller.appStateController.on(EVENTS.UPDATE_BADGE, updateBadge);
 
   /**
    * Updates the Web Extension's "badge" number, on the little fox in the toolbar.

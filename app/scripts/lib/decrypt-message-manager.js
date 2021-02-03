@@ -4,6 +4,7 @@ import ethUtil from 'ethereumjs-util';
 import { ethErrors } from 'eth-rpc-errors';
 import log from 'loglevel';
 import { MESSAGE_TYPE } from '../../../shared/constants/app';
+import { EVENTS } from '../constants/event-names';
 import { addHexPrefix } from './util';
 import createId from './random-id';
 
@@ -254,6 +255,17 @@ export default class DecryptMessageManager extends EventEmitter {
   }
 
   /**
+   * Clears all unapproved messages from memory.
+   */
+  clearUnapproved() {
+    this.memStore.updateState({
+      unapprovedDecryptMsgs: {},
+      unapprovedDecryptMsgCount: 0,
+    });
+    this.emit(EVENTS.UPDATE_BADGE);
+  }
+
+  /**
    * Updates the status of a DecryptMessage in this.messages via a call to this._updateMsg
    *
    * @private
@@ -316,7 +328,7 @@ export default class DecryptMessageManager extends EventEmitter {
       unapprovedDecryptMsgs,
       unapprovedDecryptMsgCount,
     });
-    this.emit('updateBadge');
+    this.emit(EVENTS.UPDATE_BADGE);
   }
 
   /**
