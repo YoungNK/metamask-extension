@@ -1,0 +1,15 @@
+diff --git a/node_modules/sass/sass.dart.js b/node_modules/sass/sass.dart.js
+index fedd867..0990a8f 100644
+--- a/node_modules/sass/sass.dart.js
++++ b/node_modules/sass/sass.dart.js
+@@ -3616,10 +3616,6 @@ self.fs = require("fs");
+         return C.PlainJavaScriptObject_methods;
+       if (proto === Object.prototype)
+         return C.PlainJavaScriptObject_methods;
+-      if (typeof $constructor == "function") {
+-        Object.defineProperty($constructor, J.JS_INTEROP_INTERCEPTOR_TAG(), {value: C.UnknownJavaScriptObject_methods, enumerable: false, writable: true, configurable: true});
+-        return C.UnknownJavaScriptObject_methods;
+-      }
+       return C.UnknownJavaScriptObject_methods;
+     },
+     JS_INTEROP_INTERCEPTOR_TAG: function() {
