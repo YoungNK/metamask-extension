@@ -100,7 +100,13 @@
       }
     },
     "sass": {
-      "env": "unfrozen"
+      "env": "unfrozen",
+      "builtin": {
+        "url": true
+      },
+      "globals": {
+        "Buffer": true
+      }
     }
   }
 }

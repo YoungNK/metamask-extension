@@ -944,8 +944,7 @@
       },
       "packages": {
         "micromatch": true,
-        "normalize-path": true,
-        "picomatch": true
+        "normalize-path": true
       }
     },
     "append-buffer": {
@@ -1288,13 +1287,10 @@
         "path.basename": true,
         "path.dirname": true,
         "path.extname": true,
-        "path.isAbsolute": true,
         "path.join": true,
-        "path.normalize": true,
         "path.relative": true,
         "path.resolve": true,
-        "path.sep": true,
-        "util.promisify": true
+        "path.sep": true
       },
       "globals": {
         "clearTimeout": true,
@@ -1304,7 +1300,6 @@
         "process.env.CHOKIDAR_USEPOLLING": true,
         "process.nextTick": true,
         "process.platform": true,
-        "process.version.match": true,
         "setTimeout": true
       },
       "packages": {
@@ -3357,23 +3352,16 @@
     },
     "readdirp": {
       "builtin": {
-        "fs": true,
         "path.join": true,
         "path.relative": true,
-        "path.resolve": true,
-        "path.sep": true,
-        "stream.Readable": true,
-        "util.inherits": true,
-        "util.promisify": true
+        "util.inherits": true
       },
       "globals": {
-        "process.platform": true,
         "setImmediate": true
       },
       "packages": {
         "graceful-fs": true,
         "micromatch": true,
-        "picomatch": true,
         "readable-stream": true
       }
     },
@@ -3571,37 +3559,6 @@
     "safe-regex": {
       "packages": {
         "ret": true
-      }
-    },
-    "sass": {
-      "builtin": {
-        "fs": true,
-        "readline": true
-      },
-      "globals": {
-        "HTMLElement": true,
-        "InternalError": true,
-        "TextDecoder": true,
-        "WorkerGlobalScope": true,
-        "__dirname": true,
-        "__filename": true,
-        "__non_webpack_require__": true,
-        "__webpack_require__": true,
-        "console": true,
-        "dartExperimentalFixupGetTag": true,
-        "dartMainRunner": true,
-        "dartNativeDispatchHooksTransformer": true,
-        "dartPrint": true,
-        "document": true,
-        "load": true,
-        "navigator": true,
-        "print": true,
-        "process": true,
-        "setTimeout": true,
-        "version": true
-      },
-      "packages": {
-        "chokidar": true
       }
     },
     "scope-analyzer": {
