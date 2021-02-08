@@ -19,6 +19,7 @@ async function spawnCompiler (opts) {
     maxBuffer: 10 * 1024 * 1024
   })
   if (stderr.length) {
+    console.warn(stderr)
     throw new Error(`sass-wrapper encountered error output in sass-compiler:\n${stderr}`)
   }
   // deserialize and re-bufferify
