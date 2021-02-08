@@ -12,7 +12,7 @@ const { createTask } = require('./task')
 
 // use our own compiler which runs sass in its own process
 // in order to not pollute the intrinsics
-sass.compiler = require('./sass-wrapper.js')
+sass.compiler = require('./sass-compiler.js')
 
 // scss compilation and autoprefixing tasks
 module.exports = createStyleTasks
