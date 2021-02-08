@@ -1,6 +1,5 @@
 const sass = require('sass')
 
-
 module.exports = {
   render: (opts, callback) => {
     // sass wants its arguments to come from the same Realm as itself
@@ -9,5 +8,5 @@ module.exports = {
   },
   renderSync: () => {
     throw new Error('sass-wrapper - renderSync not supported')
-  }
+  },
 }
